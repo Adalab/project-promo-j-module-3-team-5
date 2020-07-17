@@ -1,0 +1,183 @@
+/****************************
+*         Card Viewer       *
+****************************/
+
+.card__viewer {
+  height: 500px;
+  // width: 320px;
+  width: auto;
+  padding-top: 38px;
+  text-align: left;
+  transition: background-color 2s ease;
+  position: relative;
+  z-index: 1;
+
+  // Card fixed en móvil
+  // @media all and (max-width: 768px) {
+  //   position: sticky;
+  //   top: -70px;
+  // }
+
+  // Card background
+  .card-background {
+    top: 0;
+    position: absolute;
+    height: 500px;
+    width: 100%;
+    content: "";
+    z-index: -1;
+    background-image: linear-gradient(
+      to bottom,
+      #bfcdd0,
+      $color-background-card2
+    );
+    transition: all 1s ease;
+    transform-origin: top center;
+
+    @include tablet {
+      height: 600px;
+      border-radius: 6px;
+    }
+  }
+  @include tablet {
+    height: 750px;
+    padding-top: 90px;
+    transition: padding-top 0.7s ease;
+    margin: 20px 0 20px 0;
+    border-radius: 6px;
+  }
+
+  // @include desktop {
+  //   width: 585px;
+  // }
+
+  /********************
+    *      Wrapper      *
+    ********************/
+  .wrapper {
+    margin: auto;
+    width: 240px;
+    //margin: 0 35px 0 45px;  Qué preferimos?
+
+    @include tablet {
+      // margin: auto; depende de preferencia
+    }
+  }
+
+  /**************************
+    *      Card: general      *
+    **************************/
+  &--card {
+    width: 100%;
+    min-height: 329px;
+    margin-top: 20px;
+    padding-top: 21px;
+    border-radius: 2px;
+    box-shadow: 0 1px 10px 0 rgba($color-dark, 0.8),
+      0 1px 3px 0 rgba(0, 0, 0, 0.35);
+    background-color: $color-light;
+  }
+}
+
+.card {
+  /******************************************
+    *      Card text: name & description      *
+    ******************************************/
+  &__text {
+    margin-bottom: 10px;
+    padding: 0 15px 0 20px;
+    border-left: solid 5px $color-palete1-normal;
+    font-family: $font-cards;
+
+    &--name {
+      color: $color-primary;
+      font-size: 18px;
+      line-height: 1.11;
+      padding-bottom: 4px;
+      word-wrap: break-word;
+      word-break: break-word;
+    }
+
+    &--description {
+      color: $color-text;
+      line-height: 1.25;
+      word-wrap: break-word;
+      word-break: break-word;
+    }
+
+  
+  }
+
+  /*****************************
+    *      Card profile pic      *
+    *****************************/
+  &__container--img {
+    width: 240px;
+    height: 200px;
+  }
+
+  &--img {
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+  }
+
+  /*************************
+    *      Social links      *
+    *************************/
+
+  &__viewer--social {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 54px;
+    padding-left: 20px;
+
+    .social--item {
+      a {
+        display: inline-block;
+        height: 32px;
+        width: 32px;
+        line-height: 28px;
+        border: solid 2px $color-palete1-light;
+        border-radius: 50%;
+        margin: 5px;
+        text-align: center;
+        color: $color-primary;
+        transition: all .3s ease;
+
+        &:hover {
+            background-color: $color-palete1-light;
+        }
+            
+        
+      }
+      .hidden {
+        display: none;
+      }
+    }
+  }
+}
+
+/*----------------*/
+
+.large {
+  height: 457px;
+  padding-top: 160px;
+
+  @media all and (max-width: 768px) {
+    height: 500px;
+    padding-top: 38px;
+
+  }
+
+  .card-background {
+    transform-origin: top center;
+    transform: scaleY(1.25);
+
+    @media all and (max-width: 768px) {
+      transform: scaleY(1);
+      max-height: 500px;
+    }
+  }
+}
