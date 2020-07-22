@@ -1,5 +1,7 @@
 import React from 'react';
-import LogoTitle from '../../images/logo-completom.png'
+// import LogoTitle from '../../images/logo-completom.png'
+
+let LogoTitle = '../../images/logo-completom.png';
 
 class LandingMain extends React.Component {
     render(){
