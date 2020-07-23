@@ -1,0 +1,27 @@
+.header {
+  display: flex;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  @include tablet {
+    align-items: flex-start;
+    padding-left: 40px;
+  }
+
+  &__main {
+    height: 100px;
+    width: 201px;
+
+    &--logo {
+      height: 100%;
+    }
+  }
+
+  &.wrapper {
+    max-width: 1224px;
+    margin: auto;
+  }
+}

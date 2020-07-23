@@ -1,0 +1,18 @@
+// Media Queries
+@mixin tablet {
+  @media all and (min-width: $medium) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media all and (min-width: $large) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media all and (min-width: $small) {
+    @content;
+  }
+}
