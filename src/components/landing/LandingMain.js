@@ -28,6 +28,7 @@ class LandingMain extends React.Component {
               </li>
               <li className='main__menu-list item-2'>
                 <i className='main__menu-icons far fa-keyboard'></i>
+                {/* TODO fix icon */}
                 <p className='main__menu-text'>Rellena</p>
               </li>
               <li className='main__menu-list item-3'>

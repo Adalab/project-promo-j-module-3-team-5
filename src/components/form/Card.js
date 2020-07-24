@@ -1,27 +1,34 @@
 import React from 'react';
 import ProfileImage from '../../images/imagen-prueba.jpg';
 
-let linkTwitter;
+let dataObject = {};
+let checkedPalette;
+const reset = [
+  `¡No estás conforme con nada! ¿te apetece destruir el mundo conmigo?`,
+  `Equivocarse es humano...y los humanos deben ser destruidos`,
+];
 
-function twitterShare(urlCard) {
-  const twitterURL = document.querySelector('.button__twitter');
-  twitterURL.href = `http://twitter.com/share?text=Aquí tienes mi Maniac coder's Awesome Profile Cards🖥️&hashtags=adalaber,promoJemison&user_mentions=Adalab_Digital&url=${urlCard}`;
+function evilTalk(text, seconds) {
+  const evilBot = document.querySelector('.evil-bot');
+  let evilChat = document.querySelector('.evil-chat');
+  let evilContainer = document.querySelector('.evil-chat__container');
+  // Efectos burbuja de texto
+  evilBot.classList.add('talk');
+  evilContainer.classList.add('fadein');
+
+  // Cambia texto
+  evilChat.innerHTML = text[randomN(text.length)];
+
+  // Desaparcer burbuja despupés x segundos
+  setTimeout(function () {
+    evilContainer.classList.add('fadeout');
+    evilContainer.classList.remove('fadein');
+    evilBot.classList.remove('talk');
+  }, seconds);
 }
 
-function showURL(result) {
-  const linkCard = document.querySelector('.link__card');
-  if (result.success) {
-    linkTwitter = result.cardURL;
-    twitterShare(linkTwitter);
-    linkCard.innerHTML =
-      '<a href=' +
-      result.cardURL +
-      ' target="_blank">' +
-      result.cardURL +
-      '</a>';
-  } else {
-    linkCard.innerHTML = 'Muahaha ¡otro error humano!' + result.error;
-  }
+function randomN(max) {
+  return Math.floor(Math.random() * max);
 }
 
 function getPicLocal() {
@@ -32,25 +39,6 @@ function getPicLocal() {
   } else {
     return '';
   }
-}
-
-function sendRequest(json) {
-  fetch('https://us-central1-awesome-cards-cf6f0.cloudfunctions.net/card/', {
-    method: 'POST',
-    body: JSON.stringify(json),
-    headers: {
-      'content-type': 'application/json',
-    },
-  })
-    .then(function (resp) {
-      return resp.json();
-    })
-    .then(function (result) {
-      showURL(result);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
 }
 
 function createDataObject() {
@@ -71,22 +59,6 @@ function createDataObject() {
     github: inputGithub.value,
     photo: getPicLocal(), // photo: fr.result || getPicLocal(),
   };
-}
-
-function showCardDone() {
-  const cardDone = document.querySelector('.js-carddone');
-  const buttonCard = document.querySelector('.button__card');
-  if (!buttonCard.hasAttribute('disable')) {
-    cardDone.classList.remove('hidden');
-    buttonCard.classList.add('btn--disable');
-    buttonCard.setAttribute('disabled', '');
-  }
-}
-
-function createCardObject() {
-  showCardDone();
-  createDataObject();
-  sendRequest(dataObject);
 }
 
 function storeObject() {
@@ -173,64 +145,6 @@ function checkFormValidity() {
   }
 }
 
-function checkPalette() {
-  const palettes = document.querySelectorAll('.palette');
-  for (const palette of palettes) {
-    if (palette.checked) {
-      checkedPalette = palette.value;
-    }
-  }
-}
-
-function resetForm() {
-  const card = document.querySelector('.card__viewer');
-  const person = {
-    name: document.querySelector('.js-personName'),
-    job: document.querySelector('.js-personJob'),
-    email: document.querySelector('.js-email'),
-    phone: document.querySelector('.js-mobile'),
-    linkedin: document.querySelector('.js-linkedin'),
-    github: document.querySelector('.js-github'),
-    photo: document.querySelector('.card--img'),
-  };
-  const defaultPerson = {
-    name: 'Nombre Apellido',
-    job: 'Front-end Developer',
-  };
-  document.querySelector('.form').reset();
-  person.name.innerHTML = defaultPerson.name;
-  person.job.innerHTML = defaultPerson.job;
-  person.photo.style.backgroundImage =
-    "url('./assets/images/imagen-prueba.jpg')";
-  //   profilePreview.style.backgroundImage = 'none'; TODO componente
-
-  if (person.phone.classList.contains('.hidden') === false) {
-    person.phone.classList.add('hidden');
-  }
-  person.phone.href = '';
-
-  if (person.email.classList.contains('.hidden') === false) {
-    person.email.classList.add('hidden');
-  }
-  person.email.href = '';
-
-  if (person.linkedin.classList.contains('.hidden') === false) {
-    person.linkedin.classList.add('hidden');
-  }
-  person.github.href = '';
-
-  if (person.github.classList.contains('.hidden') === false) {
-    person.github.classList.add('hidden');
-  }
-  person.github.href = '';
-
-  card.classList.add('js-palette1');
-  card.classList.remove('js-palette2', 'js-palette3', 'js-palette4');
-
-  checkFormValidity();
-  storeObject();
-  localStorage.removeItem('userData');
-}
 class Card extends React.Component {
   resetForm() {
     const card = document.querySelector('.card__viewer');
@@ -290,7 +204,10 @@ class Card extends React.Component {
           <button
             name='reset'
             className='btn btn--reset'
-            onClick={this.resetForm}
+            onClick={(event) => {
+              this.resetForm();
+              evilTalk(reset, 4000);
+            }}
           >
             <i className='far fa-trash-alt'></i> Reset
           </button>

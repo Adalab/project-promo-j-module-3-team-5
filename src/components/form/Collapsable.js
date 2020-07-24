@@ -1,8 +1,16 @@
 import React from 'react';
-
+// TODO fix evilbot reaction to name and jobReacion https://github.com/Adalab/project-promo-j-module-2-team-1-morning/blob/30af70063724c771709c5f3e6fc92488c28352f9/src/js/05-evilbot.js#L104
 let checkedPalette;
 let dataObject = {};
 let linkTwitter;
+const emailReaction = [
+  `Pero, ¡revisa luego los correos que te lleguen!`,
+  `¿Email? ¿Todavía no domináis la telepatía?`,
+];
+const createCard = [
+  `Ya tienes lo que querías, ¿me puedes dejar en paz?`,
+  `Estupendo, ahora tus datos están en mi poder ¡muahaha!`,
+];
 
 // Array con los links sociales (del input)
 
@@ -85,20 +93,13 @@ function showCardDone() {
     buttonCard.setAttribute('disabled', '');
   }
 }
-
-function createCardObject() {
-  showCardDone();
-  createDataObject();
-  sendRequest(dataObject);
-}
-
 function storeObject() {
   createDataObject();
   localStorage.setItem('userData', JSON.stringify(dataObject));
 }
 
 function closeCollapsable() {
-  const card = document.querySelector('.card__viewer');
+  const card = document.querySelector('.card__viewer'); //TODO verificar si si esta agregado
   document.addEventListener('click', checkFormValidity);
   const colArrow = document.querySelectorAll('.js-collapsibleParent > .arrow');
   const colBox = document.querySelectorAll('.js-collapsibleChild');
@@ -235,7 +236,107 @@ function resetForm() {
   localStorage.removeItem('userData');
 }
 
+function paintCard(event) {
+  const defaultPerson = {
+    name: 'Nombre Apellido',
+    job: 'Front-end Developer',
+  };
+  const person = {
+    name: document.querySelector('.js-personName'),
+    job: document.querySelector('.js-personJob'),
+    email: document.querySelector('.js-email'),
+    phone: document.querySelector('.js-mobile'),
+    linkedin: document.querySelector('.js-linkedin'),
+    github: document.querySelector('.js-github'),
+    photo: document.querySelector('.card--img'),
+  };
+  const inputName = document.querySelector('#name');
+  const inputJob = document.querySelector('#job');
+  const inputEmail = document.querySelector('#email');
+  const inputPhone = document.querySelector('#phone');
+  const inputLinkedin = document.querySelector('#linkedin');
+  const inputGithub = document.querySelector('#github');
+  // Paint Name and job
+  if (event.target === inputName) {
+    person.name.innerHTML =
+      inputName.value !== '' ? inputName.value : defaultPerson.name;
+  } else if (event.target === inputJob) {
+    person.job.innerHTML =
+      inputJob.value !== '' ? inputJob.value : defaultPerson.job;
+  }
+
+  // Paint Email
+  else if (event.target === inputEmail) {
+    if (inputEmail.value === '' || event.target.checkValidity() === false) {
+      person.email.classList.add('hidden');
+    } else if (event.target.checkValidity() === true) {
+      person.email.href = `mailto:${inputEmail.value}`;
+      person.email.classList.remove('hidden');
+    }
+
+    // Paint Phone
+  } else if (event.target === inputPhone) {
+    if (inputPhone.value === '' || event.target.checkValidity() === false) {
+      person.phone.classList.add('hidden');
+    } else if (event.target.checkValidity() === true) {
+      person.phone.href = `tel:${inputPhone.value}`;
+      person.phone.title = inputPhone.value;
+      person.phone.classList.remove('hidden');
+    }
+
+    //Paint linkedin
+  } else if (event.target === inputLinkedin) {
+    if (inputLinkedin.value === '' || event.target.checkValidity() === false) {
+      person.linkedin.classList.add('hidden');
+    } else if (event.target.checkValidity() === true) {
+      person.linkedin.href = `https://www.linkedin.com/in/${inputLinkedin.value}`;
+      person.linkedin.classList.remove('hidden');
+    }
+  } else if (event.target === inputGithub) {
+    if (inputGithub.value === '' || event.target.checkValidity() === false) {
+      person.github.classList.add('hidden');
+    } else if (event.target.checkValidity() === true) {
+      person.github.href = `https://github.com/${inputGithub.value}`;
+      person.github.classList.remove('hidden');
+    }
+  }
+
+  checkFormValidity();
+}
+
+function evilTalk(text, seconds) {
+  const evilBot = document.querySelector('.evil-bot');
+  let evilChat = document.querySelector('.evil-chat');
+  let evilContainer = document.querySelector('.evil-chat__container');
+  // Efectos burbuja de texto
+  evilBot.classList.add('talk');
+  evilContainer.classList.add('fadein');
+
+  // Cambia texto
+  evilChat.innerHTML = text[randomN(text.length)];
+
+  // Desaparcer burbuja despupés x segundos
+  setTimeout(function () {
+    evilContainer.classList.add('fadeout');
+    evilContainer.classList.remove('fadein');
+    evilBot.classList.remove('talk');
+  }, seconds);
+}
+
+function randomN(max) {
+  return Math.floor(Math.random() * max);
+}
+
 class Collapsable extends React.Component {
+  handleForm(event) {
+    paintCard(event);
+    storeObject();
+  }
+  createCardObject() {
+    showCardDone();
+    createDataObject();
+    sendRequest(dataObject);
+  }
   showCollapsible(event) {
     // Definición de variables (ARRAYS)
     const card = document.querySelector('.card__viewer');
@@ -328,6 +429,33 @@ class Collapsable extends React.Component {
     storeObject();
   }
 
+  updateMessages() {
+    const inputName = document.querySelector('#name');
+    const inputJob = document.querySelector('#job');
+    /*~~~~~~~~~  Greetings  ~~~~~~~~*/
+
+    /*~~~~~~~~~  Name  ~~~~~~~~*/
+    const name = [
+      `<b>${inputName.value}</b>, ¿sabes que he venido a conquistar tu mundo?`,
+      `Encantado, <b>${inputName.value}</b>, me alegra conocer tu nombre antes de acabar contigo`,
+    ];
+    // Reacción a name
+
+    inputName.addEventListener('blur', function () {
+      evilTalk(name, 4000);
+    });
+
+    /*~~~~~~~~~  Job  ~~~~~~~~*/
+    const jobReaction = [
+      `Vaya, como <b>${inputJob.value}</b> debes tener buen sueldo ¡Qué pena que vaya a destruir el mundo`,
+      `¿Trabajar? Por eso los humanos sois una especie inferior`,
+    ];
+    // Reacción a job
+    inputJob.addEventListener('blur', function () {
+      evilTalk(jobReaction, 4000);
+    });
+  }
+
   if(buttonReset) {
     buttonReset.addEventListener('click', resetForm);
   }
@@ -338,6 +466,10 @@ class Collapsable extends React.Component {
         action=''
         method='post'
         onClick={this.showCollapsible}
+        onKeyUp={(event) => {
+          this.handleForm(event);
+          this.updateMessages();
+        }}
       >
         <div className='wrapper'>
           <div className='design'>
@@ -437,6 +569,7 @@ class Collapsable extends React.Component {
                   type='text'
                   placeholder='Ej: Tentáculo Morado'
                   id='name'
+                  //   onBlur={this.evilTalk(nameReaction, 4000)} TODO Fix
                   name='name'
                   required
                 />
@@ -445,6 +578,7 @@ class Collapsable extends React.Component {
                   type='text'
                   placeholder='Ej: Front-end unicorn '
                   id='job'
+                  //   onBlur={this.evilTalk(jobReaction, 4000)} TODO Fix
                   name='job'
                   required
                 />
@@ -485,6 +619,9 @@ class Collapsable extends React.Component {
                   type='email'
                   placeholder='Ej: tentaculo@morado.com'
                   id='email'
+                  onBlur={() => {
+                    evilTalk(emailReaction, 4000);
+                  }}
                   name='email'
                   pattern='[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}'
                   required
@@ -538,6 +675,10 @@ class Collapsable extends React.Component {
                   className='button__card btn--disable'
                   href=''
                   title='Crear tarjeta'
+                  onClick={(event) => {
+                    this.createCardObject(event);
+                    evilTalk(createCard, 5000);
+                  }} //TODO comprobar funcionamiento
                   disabled
                 >
                   <i className='i__card far fa-address-card'></i>CREAR TARJETA
