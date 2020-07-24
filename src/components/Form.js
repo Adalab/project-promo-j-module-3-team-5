@@ -1,6 +1,5 @@
 import React from 'react';
 import '../stylesheets/App.scss';
-
 import Header from './form/Header';
 import Card from './form/Card';
 import Footer from './landing/Footer';
