@@ -1,5 +1,5 @@
 import React from 'react';
-import '../stylesheets/App.css';
+import '../stylesheets/App.scss';
 
 import Header from './form/Header';
 import Card from './form/Card';
@@ -8,7 +8,7 @@ import Collapsable from './form/Collapsable';
 
 function Form() {
   return (
-    <div className="Form">
+    <div className='Form'>
       <Header />
       <Collapsable />
       <Card />

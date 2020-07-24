@@ -1,14 +1,12 @@
 import React from 'react';
-import '../stylesheets/App.css';
+import '../stylesheets/App.scss';
 import LandingMain from './landing/LandingMain';
 import Footer from './landing/Footer';
-import Carousel from './landing/Carousel';
 
 function App() {
   return (
-    <div className="App">
+    <div className='App'>
       <LandingMain />
-      <Carousel />
       <Footer />
     </div>
   );

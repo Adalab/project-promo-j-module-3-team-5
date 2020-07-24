@@ -4,10 +4,10 @@ import './stylesheets/index.css';
 import App from './components/App';
 import Form from './components/Form';
 
-ReactDOM.render (
+ReactDOM.render(
   <React.StrictMode>
-    <App />,
+    <App />
     <Form />
   </React.StrictMode>,
-  document.getElementById ('root')
+  document.getElementById('root')
 );

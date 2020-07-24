@@ -1,3 +1,6 @@
+@import '../images/notalk.png';
+@import '../images/stop.png';
+
 // Evil bot
 .evil-bot__container {
   position: absolute;
@@ -62,7 +65,7 @@
 .evil-bot {
   width: 100px;
   height: 100px;
-  background-image: url('../images/notalk.png');
+  background-image: url(Notalk);
   background-size: 50px;
   background-position: center;
   background-repeat: no-repeat;
@@ -100,10 +103,10 @@
 }
 
 .talk {
-  background-image: url('../images/stop.png') !important;
+  background-image: url(Stop) !important;
   background-size: contain;
 }
 
 .stop {
-  background-image: url('../images/notalk.png');
+  background-image: url(Notalk);
 }
