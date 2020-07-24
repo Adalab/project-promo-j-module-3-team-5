@@ -8,11 +8,15 @@ import Evilbot from './form/Evilbot';
 
 function Form() {
   return (
-    <div className='Form'>
+    <div className='Form card-generator'>
       <Header />
-      <Collapsable />
-      <Card />
-      <Evilbot />
+      <main class='main__card-generator'>
+        <div class='card-generator__wrapper'>
+          <Card />
+          <Collapsable />
+        </div>
+        <Evilbot />
+      </main>
       <Footer />
     </div>
   );
