@@ -1,13 +1,13 @@
 import React from 'react';
 import '../stylesheets/App.scss';
-import LandingMain from './landing/LandingMain';
-import Footer from './landing/Footer';
+import Landing from './Landing';
+import Form from './Form';
 
 function App() {
   return (
     <div className='App'>
-      <LandingMain />
-      <Footer />
+      <Landing />
+      <Form />
     </div>
   );
 }
