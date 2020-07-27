@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "./static/css/main.e0343f92.chunk.css",
+    "main.js": "./static/js/main.aec42603.chunk.js",
+    "main.js.map": "./static/js/main.aec42603.chunk.js.map",
+    "runtime-main.js": "./static/js/runtime-main.7c4ac9ee.js",
+    "runtime-main.js.map": "./static/js/runtime-main.7c4ac9ee.js.map",
+    "static/js/2.55190993.chunk.js": "./static/js/2.55190993.chunk.js",
+    "static/js/2.55190993.chunk.js.map": "./static/js/2.55190993.chunk.js.map",
+    "index.html": "./index.html",
+    "precache-manifest.6d90d4576a5aa0baac4a35c1efa87854.js": "./precache-manifest.6d90d4576a5aa0baac4a35c1efa87854.js",
+    "service-worker.js": "./service-worker.js",
+    "static/css/main.e0343f92.chunk.css.map": "./static/css/main.e0343f92.chunk.css.map",
+    "static/js/2.55190993.chunk.js.LICENSE.txt": "./static/js/2.55190993.chunk.js.LICENSE.txt",
+    "static/media/bernard.jpg": "./static/media/bernard.5d27aa7d.jpg",
+    "static/media/green.jpg": "./static/media/green.1fcbf358.jpg",
+    "static/media/hoagie.jpg": "./static/media/hoagie.9b66b16b.jpg",
+    "static/media/imagen-prueba.jpg": "./static/media/imagen-prueba.6edf7ef5.jpg",
+    "static/media/laverne.jpg": "./static/media/laverne.a9ad2df8.jpg",
+    "static/media/logo-completom.png": "./static/media/logo-completom.d727ce18.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.7c4ac9ee.js",
+    "static/js/2.55190993.chunk.js",
+    "static/css/main.e0343f92.chunk.css",
+    "static/js/main.aec42603.chunk.js"
+  ]
+}
