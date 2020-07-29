@@ -361,7 +361,7 @@
   display: none;
 }
 
-.js-collapsibleChild {
+.collapsibleChild {
   transform-origin: top center;
   opacity: 1;
   overflow: hidden;
@@ -381,7 +381,7 @@
   *   Colores palettes      *
   **************************/
 
-.js-palette1 {
+.palette1 {
   .card-background {
     background-image: linear-gradient(
       to bottom,
@@ -410,7 +410,7 @@
   }
 }
 
-.js-palette2 {
+.palette2 {
   // animation: animatedBackground .3s ease forwards;
   .card-background {
     background-image: linear-gradient(
@@ -439,7 +439,7 @@
     }
   }
 }
-.js-palette3 {
+.palette3 {
   .card-background {
     // background-image: linear-gradient(to bottom, rgb(17, 168, 110), rgb(29, 46, 122)) !important;
     background-image: linear-gradient(
@@ -468,7 +468,7 @@
   }
 }
 
-.js-palette4 {
+.palette4 {
   .card-background {
     background-image: linear-gradient(
       to bottom,

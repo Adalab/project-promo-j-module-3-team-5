@@ -9,7 +9,7 @@ let timer;
 let slideIndex = 1;
 
 function showSlide(n) {
-  let slides = document.querySelectorAll('.js-slide');
+  let slides = document.querySelectorAll('.slide');
 
   if (n >= slides.length) {
     slideIndex = 0;
@@ -36,7 +36,7 @@ class Carousel extends React.Component {
     return (
       <div className='carousel__container'>
         {/* <!-- Bernard --> */}
-        <article className='carousel__main js-bernard js-slide fade'>
+        <article className='carousel__main bernard slide fade'>
           <div className='carousel__image--container'>
             <img
               className='carousel__image'
@@ -57,7 +57,7 @@ class Carousel extends React.Component {
 
         {/* <!-- Laverne --> */}
 
-        <article className='carousel__main js-laverne js-slide fade'>
+        <article className='carousel__main laverne slide fade'>
           <div className='carousel__image--container'>
             <img
               className='carousel__image'
@@ -77,7 +77,7 @@ class Carousel extends React.Component {
 
         {/* <!--  Hoagie --> */}
 
-        <article className='carousel__main js-hoagie js-slide fade'>
+        <article className='carousel__main hoagie slide fade'>
           <div className='carousel__image--container'>
             <img
               className='carousel__image'
@@ -97,7 +97,7 @@ class Carousel extends React.Component {
 
         {/* <!-- Verde --> */}
 
-        <article className='carousel__main js-green js-slide fade'>
+        <article className='carousel__main green slide fade'>
           <div className='carousel__image--container'>
             <img
               className='carousel__image'
@@ -118,11 +118,11 @@ class Carousel extends React.Component {
         {/* <!-- Arrows --> */}
 
         <i
-          className='fas fa-caret-left prev js-arrow-carousel'
+          className='fas fa-caret-left prev arrow-carousel'
           onClick={() => plusSlide(-1)}
         ></i>
         <i
-          className='fas fa-caret-right next js-arrow-carousel'
+          className='fas fa-caret-right next arrow-carousel'
           onClick={() => plusSlide(1)}
         ></i>
       </div>

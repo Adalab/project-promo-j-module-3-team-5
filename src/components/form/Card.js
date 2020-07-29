@@ -188,8 +188,8 @@ class Card extends React.Component {
     }
     person.github.href = '';
 
-    card.classList.add('js-palette1');
-    card.classList.remove('js-palette2', 'js-palette3', 'js-palette4');
+    card.classList.add('palette1');
+    card.classList.remove('palette2', 'palette3', 'palette4');
 
     checkFormValidity();
     storeObject();

@@ -12,6 +12,14 @@ const createCard = [
   `Estupendo, ahora tus datos están en mi poder ¡muahaha!`,
 ];
 
+/*//Actualización del estado a vacio. TODO
+class Collapsable extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+     dataObject: ''
+    };
+*/
 // Array con los links sociales (del input)
 
 function twitterShare(urlCard) {
@@ -102,7 +110,7 @@ function closeCollapsable() {
   const card = document.querySelector('.card__viewer'); //TODO verificar si si esta agregado
   document.addEventListener('click', checkFormValidity);
   const colArrow = document.querySelectorAll('.js-collapsibleParent > .arrow');
-  const colBox = document.querySelectorAll('.js-collapsibleChild');
+  const colBox = document.querySelectorAll('.collapsibleChild');
 
   const allInputs = document.querySelectorAll('input');
   let trueFalseInputs = [];
@@ -228,8 +236,8 @@ function resetForm() {
   }
   person.github.href = '';
 
-  card.classList.add('js-palette1');
-  card.classList.remove('js-palette2', 'js-palette3', 'js-palette4');
+  card.classList.add('palette1');
+  card.classList.remove('palette2', 'palette3', 'palette4');
 
   checkFormValidity();
   storeObject();
@@ -345,7 +353,7 @@ class Collapsable extends React.Component {
     const colArrow = document.querySelectorAll(
       '.js-collapsibleParent > .arrow'
     );
-    const colBox = document.querySelectorAll('.js-collapsibleChild');
+    const colBox = document.querySelectorAll('.collapsibleChild');
 
     // Caso 1: Pulsamos design
 
@@ -403,17 +411,17 @@ class Collapsable extends React.Component {
 
     background.classList.add('run-animation');
     if (event.target === palettes[0]) {
-      card.classList.add('js-palette1');
-      card.classList.remove('js-palette2', 'js-palette3', 'js-palette4');
+      card.classList.add('palette1');
+      card.classList.remove('palette2', 'palette3', 'palette4');
     } else if (event.target === palettes[1]) {
-      card.classList.remove('js-palette3', 'js-palette1', 'js-palette4');
-      card.classList.add('js-palette2');
+      card.classList.remove('palette3', 'palette1', 'palette4');
+      card.classList.add('palette2');
     } else if (event.target === palettes[2]) {
-      card.classList.add('js-palette3');
-      card.classList.remove('js-palette2', 'js-palette1', 'js-palette4');
+      card.classList.add('palette3');
+      card.classList.remove('palette2', 'palette1', 'palette4');
     } else if (event.target === palettes[3]) {
-      card.classList.add('js-palette4');
-      card.classList.remove('js-palette3', 'js-palette2', 'js-palette1');
+      card.classList.add('palette4');
+      card.classList.remove('palette3', 'palette2', 'palette1');
     }
 
     setTimeout(function () {
@@ -482,7 +490,7 @@ class Collapsable extends React.Component {
                 <i className='arrow fas fa-chevron-down'></i>
               </div>
               {/* <!-- Collapsable child: PALETTES --> */}
-              <div className='palettes__container js-collapsibleChild hide-design'>
+              <div className='palettes__container collapsibleChild hide-design'>
                 <span>Colores</span>
                 <div className='palettes__options'>
                   <div className='option option1'>
@@ -563,7 +571,7 @@ class Collapsable extends React.Component {
                 <i className='arrow fas fa-chevron-down'></i>
               </div>
 
-              <div className='fill-box js-collapsibleChild hide-fill'>
+              <div className='fill-box collapsibleChild hide-fill'>
                 <label htmlFor='name'>Nombre completo</label>
                 <input
                   type='text'
@@ -669,7 +677,7 @@ class Collapsable extends React.Component {
                 <h3>Comparte</h3>
                 <i className='arrow fas fa-chevron-down'></i>
               </div>
-              <div className='share__container--button js-collapsibleChild hide-share'>
+              <div className='share__container--button collapsibleChild hide-share'>
                 <button
                   type='button'
                   className='button__card btn--disable'
