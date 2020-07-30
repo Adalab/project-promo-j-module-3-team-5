@@ -1,4 +1,5 @@
 import React from 'react';
+import GetAvatar from './GetAvatar';
 // TODO fix evilbot reaction to name and jobReacion https://github.com/Adalab/project-promo-j-module-2-team-1-morning/blob/30af70063724c771709c5f3e6fc92488c28352f9/src/js/05-evilbot.js#L104
 let checkedPalette;
 let dataObject = {};
@@ -12,14 +13,8 @@ const createCard = [
   `Estupendo, ahora tus datos están en mi poder ¡muahaha!`,
 ];
 
-/*//Actualización del estado a vacio. TODO
-class Collapsable extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-     dataObject: ''
-    };
-*/
+
+
 // Array con los links sociales (del input)
 
 function twitterShare(urlCard) {
@@ -73,6 +68,7 @@ function sendRequest(json) {
 }
 
 function createDataObject() {
+
   const inputName = document.querySelector('#name');
   const inputJob = document.querySelector('#job');
   const inputEmail = document.querySelector('#email');
@@ -335,7 +331,44 @@ function randomN(max) {
   return Math.floor(Math.random() * max);
 }
 
+
+const userData = {
+  name: '',
+  job: '',
+  email:'',
+  phone:'',
+  linkedin:'',
+  github:'',
+  photo:'',
+  
+  }
 class Collapsable extends React.Component {
+
+  //Actualización del estado a vacio. TODO
+  constructor(props) {
+    super(props);
+    this.state = userData;
+  
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+handleChange(event) {
+  const value = event.target.value;
+  const key = event.target.name;
+/*  const inputName = event.target.userData.name;
+  const inputJob = event.target.userData.job;
+  const inputEmail = event.target.userData.email;
+  const inputPhone = event.target.userData.phone;
+  const inputLinkedin = event.target.userData.linkedin;
+  const inputGithub = event.target.userData.github;
+  const inputPhoto = event.target.userData.photo;*/
+this.setState({
+  [key]: value
+
+})
+}
+
+
   handleForm(event) {
     paintCard(event);
     storeObject();
@@ -579,6 +612,7 @@ class Collapsable extends React.Component {
                   id='name'
                   //   onBlur={this.evilTalk(nameReaction, 4000)} TODO Fix
                   name='name'
+                  onChange={this.handleChange} value={this.state.userData}
                   required
                 />
                 <label htmlFor='job'>Puesto</label>
@@ -588,11 +622,13 @@ class Collapsable extends React.Component {
                   id='job'
                   //   onBlur={this.evilTalk(jobReaction, 4000)} TODO Fix
                   name='job'
+                  onChange={this.handleChange} value={this.state.userData}
                   required
                 />
                 <label htmlFor='img-selector'>Imagen de perfil</label>
                 {/* <!-- De aquí --> */}
-                <div className='action__image-preview'>
+                <GetAvatar/>
+                {/* <div className='action__image-preview'>
                   <div className='action'>
                     <button
                       className='action__upload-btn js__profile-trigger btn-addimage'
@@ -600,6 +636,7 @@ class Collapsable extends React.Component {
                     >
                       Añadir imagen
                     </button>
+
                     <input
                       type='file'
                       name=''
@@ -607,9 +644,9 @@ class Collapsable extends React.Component {
                       className='action__hiddenField js__profile-upload-btn'
                     />
                   </div>
-                  <div className='profile'>
+                  <div className='profile'> */}
                     {/* <!--btn-container --> */}
-                    <div
+                    {/* <div
                       className='profile__image js__profile-image'
                       style={{
                         backgroundImage: `url(https://via.placeholder.com/300x300/cccccc/666666/?text=IMAGE)`,
@@ -617,9 +654,9 @@ class Collapsable extends React.Component {
                     ></div>
                     <div className='profile__preview js__profile-preview'></div>
                   </div>
-                </div>
+                </div> */}
 
-                {/* <!-- Aquí --> */}
+                {/* {/* <!-- Aquí --> */}
 
                 <label htmlFor='email'>Email</label>
                 <input
@@ -630,6 +667,7 @@ class Collapsable extends React.Component {
                   onBlur={() => {
                     evilTalk(emailReaction, 4000);
                   }}
+                  onChange={this.handleChange} value={this.state.userData}
                   name='email'
                   pattern='[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}'
                   required
@@ -643,6 +681,7 @@ class Collapsable extends React.Component {
                   id='phone'
                   name='phone'
                   pattern='[0-9]{9}'
+                  onChange={this.handleChange} value={this.state.userData}
                 />
 
                 <label htmlFor='linkedin'>Linkedin</label>
@@ -652,6 +691,7 @@ class Collapsable extends React.Component {
                   id='linkedin'
                   name='linkedin'
                   pattern='[A-Za-z0-9]+'
+                  onChange={this.handleChange} value={this.state.userData}
                   required
                 />
 
@@ -662,6 +702,7 @@ class Collapsable extends React.Component {
                   id='github'
                   name='github'
                   pattern='[A-Za-z0-9-]+'
+                  onChange={this.handleChange} value={this.state.userData}
                   required
                 />
               </div>

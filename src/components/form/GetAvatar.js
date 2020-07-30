@@ -24,7 +24,7 @@ class GetAvatar extends Component {
     this.fr.readAsDataURL(myFile);
   }
 
-  getImage() {
+  getImage() { //TODO
     const image = this.fr.result;
     this.props.updateAvatar(image);
   }
