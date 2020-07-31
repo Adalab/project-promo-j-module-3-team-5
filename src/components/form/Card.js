@@ -1,5 +1,6 @@
 import React from 'react';
-import ProfileImage from '../../images/imagen-prueba.jpg';
+// import ProfileImage from '../../images/imagen-prueba.jpg';
+import Profile from './Profile';
 
 let dataObject = {};
 let checkedPalette;
@@ -146,6 +147,12 @@ function checkFormValidity() {
 }
 
 class Card extends React.Component {
+  constructor(props) {
+    super(props);
+    // this.state = {
+    //   avatar: props.avatar,
+    // };
+  }
   resetForm() {
     const card = document.querySelector('.card__viewer');
     const person = {
@@ -225,13 +232,14 @@ class Card extends React.Component {
             </div>
 
             {/* <!-- Profile pic --> */}
-            <div className='card__container--img'>
+            <Profile avatar={this.props.avatar} />
+            {/* <div className='card__container--img'>
               <div
                 className='card--img js__profile-image'
                 style={{ backgroundImage: `url(${ProfileImage})` }}
               ></div>
-              {/* Revisar */}
-            </div>
+
+            </div> */}
 
             {/* <!-- Social links --> */}
             <ul className='card__viewer--social'>

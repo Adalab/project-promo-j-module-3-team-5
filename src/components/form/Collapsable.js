@@ -13,8 +13,6 @@ const createCard = [
   `Estupendo, ahora tus datos están en mi poder ¡muahaha!`,
 ];
 
-
-
 // Array con los links sociales (del input)
 
 function twitterShare(urlCard) {
@@ -68,14 +66,12 @@ function sendRequest(json) {
 }
 
 function createDataObject() {
-
   const inputName = document.querySelector('#name');
   const inputJob = document.querySelector('#job');
   const inputEmail = document.querySelector('#email');
   const inputPhone = document.querySelector('#phone');
   const inputLinkedin = document.querySelector('#linkedin');
   const inputGithub = document.querySelector('#github');
-
   dataObject = {
     palette: checkedPalette,
     name: inputName.value,
@@ -99,7 +95,7 @@ function showCardDone() {
 }
 function storeObject() {
   createDataObject();
-  localStorage.setItem('userData', JSON.stringify(dataObject));
+  //   localStorage.setItem('userData', JSON.stringify(dataObject));
 }
 
 function closeCollapsable() {
@@ -331,43 +327,47 @@ function randomN(max) {
   return Math.floor(Math.random() * max);
 }
 
-
 const userData = {
   name: '',
   job: '',
-  email:'',
-  phone:'',
-  linkedin:'',
-  github:'',
-  photo:'',
-  
-  }
+  email: '',
+  phone: '',
+  linkedin: '',
+  github: '',
+  photo: '',
+};
 class Collapsable extends React.Component {
-
   //Actualización del estado a vacio. TODO
   constructor(props) {
     super(props);
     this.state = userData;
-  
     this.handleChange = this.handleChange.bind(this);
+    this.handleImg = this.handleImg.bind(this);
+  }
+  handleImg(image) {
+    this.setState({ photo: image });
   }
 
-handleChange(event) {
-  const value = event.target.value;
-  const key = event.target.name;
-/*  const inputName = event.target.userData.name;
+  componentDidUpdate() {
+    localStorage.setItem('userData', JSON.stringify(this.state));
+  }
+
+  handleChange(event) {
+    const key = event.target.name;
+    const value = key === 'photo' ? this.props.avatar : event.target.value;
+    console.log(`Valor a subir: ${value}
+	============`);
+    /*  const inputName = event.target.userData.name;
   const inputJob = event.target.userData.job;
   const inputEmail = event.target.userData.email;
   const inputPhone = event.target.userData.phone;
   const inputLinkedin = event.target.userData.linkedin;
   const inputGithub = event.target.userData.github;
   const inputPhoto = event.target.userData.photo;*/
-this.setState({
-  [key]: value
-
-})
-}
-
+    this.setState({
+      [key]: value,
+    });
+  }
 
   handleForm(event) {
     paintCard(event);
@@ -612,7 +612,8 @@ this.setState({
                   id='name'
                   //   onBlur={this.evilTalk(nameReaction, 4000)} TODO Fix
                   name='name'
-                  onChange={this.handleChange} value={this.state.userData}
+                  onChange={this.handleChange}
+                  value={this.state.userData}
                   required
                 />
                 <label htmlFor='job'>Puesto</label>
@@ -622,12 +623,19 @@ this.setState({
                   id='job'
                   //   onBlur={this.evilTalk(jobReaction, 4000)} TODO Fix
                   name='job'
-                  onChange={this.handleChange} value={this.state.userData}
+                  onChange={this.handleChange}
+                  value={this.state.userData}
                   required
                 />
                 <label htmlFor='img-selector'>Imagen de perfil</label>
                 {/* <!-- De aquí --> */}
-                <GetAvatar/>
+                <GetAvatar
+                  avatar={this.props.avatar}
+                  isAvatarDefault={this.props.isAvatarDefault}
+                  updateAvatar={this.props.updateAvatar}
+                  handleChange={this.handleChange}
+                  handleImg={this.handleImg}
+                />
                 {/* <div className='action__image-preview'>
                   <div className='action'>
                     <button
@@ -645,8 +653,8 @@ this.setState({
                     />
                   </div>
                   <div className='profile'> */}
-                    {/* <!--btn-container --> */}
-                    {/* <div
+                {/* <!--btn-container --> */}
+                {/* <div
                       className='profile__image js__profile-image'
                       style={{
                         backgroundImage: `url(https://via.placeholder.com/300x300/cccccc/666666/?text=IMAGE)`,
@@ -667,7 +675,8 @@ this.setState({
                   onBlur={() => {
                     evilTalk(emailReaction, 4000);
                   }}
-                  onChange={this.handleChange} value={this.state.userData}
+                  onChange={this.handleChange}
+                  value={this.state.userData}
                   name='email'
                   pattern='[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}'
                   required
@@ -681,7 +690,8 @@ this.setState({
                   id='phone'
                   name='phone'
                   pattern='[0-9]{9}'
-                  onChange={this.handleChange} value={this.state.userData}
+                  onChange={this.handleChange}
+                  value={this.state.userData}
                 />
 
                 <label htmlFor='linkedin'>Linkedin</label>
@@ -691,7 +701,8 @@ this.setState({
                   id='linkedin'
                   name='linkedin'
                   pattern='[A-Za-z0-9]+'
-                  onChange={this.handleChange} value={this.state.userData}
+                  onChange={this.handleChange}
+                  value={this.state.userData}
                   required
                 />
 
@@ -702,7 +713,8 @@ this.setState({
                   id='github'
                   name='github'
                   pattern='[A-Za-z0-9-]+'
-                  onChange={this.handleChange} value={this.state.userData}
+                  onChange={this.handleChange}
+                  value={this.state.userData}
                   required
                 />
               </div>

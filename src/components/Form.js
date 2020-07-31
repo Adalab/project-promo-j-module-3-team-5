@@ -6,14 +6,18 @@ import Footer from './landing/Footer';
 import Collapsable from './form/Collapsable';
 import Evilbot from './form/Evilbot';
 
-function Form() {
+function Form(props) {
   return (
     <div className='Form card-generator'>
       <Header />
       <main class='main__card-generator'>
         <div class='card-generator__wrapper'>
-          <Card />
-          <Collapsable />
+          <Card avatar={props.avatar} />
+          <Collapsable
+            avatar={props.avatar}
+            isAvatarDefault={props.isAvatarDefault}
+            updateAvatar={props.updateAvatar}
+          />
         </div>
         <Evilbot />
       </main>
