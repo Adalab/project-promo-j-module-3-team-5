@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import LogoTitle from '../../images/logo-completom.png';
 import Carousel from './Carousel.js';
 
@@ -37,16 +38,7 @@ class LandingMain extends React.Component {
               </li>
             </ul>
           </nav>
-
-          <a
-            className='main__button'
-            //role="link"
-            //OJO!mirar como llamar al otro archivo cardgenerator.html en href
-            href='./'
-            title='Comenzar a hacer tu tarjeta'
-          >
-            Comenzar
-          </a>
+          <Link to="/form" className='main__button' title='Comenzar a hacer tu tarjeta'>Comenzar</Link>
           <Carousel />
         </div>
       </main>
