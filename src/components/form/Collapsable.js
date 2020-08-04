@@ -1,6 +1,7 @@
 import React from 'react';
 import GetAvatar from './GetAvatar';
 // TODO fix evilbot reaction to name and jobReacion https://github.com/Adalab/project-promo-j-module-2-team-1-morning/blob/30af70063724c771709c5f3e6fc92488c28352f9/src/js/05-evilbot.js#L104
+import getDataFromApi from '../../services/api';
 let checkedPalette;
 let dataObject = {};
 let linkTwitter;
@@ -304,6 +305,8 @@ function paintCard(event) {
   checkFormValidity();
 }
 
+
+
 function evilTalk(text, seconds) {
   const evilBot = document.querySelector('.evil-bot');
   let evilChat = document.querySelector('.evil-chat');
@@ -343,9 +346,91 @@ class Collapsable extends React.Component {
     this.state = userData;
     this.handleChange = this.handleChange.bind(this);
     this.handleImg = this.handleImg.bind(this);
+    this.cardMount = this.cardMount.bind(this);
   }
+
   handleImg(image) {
     this.setState({ photo: image });
+  }
+
+  cardMount() {
+    const defaultPerson = {
+      name: 'Nombre Apellido',
+      job: 'Front-end Developer',
+    };
+    const person = {
+      name: document.querySelector('.js-personName'),
+      job: document.querySelector('.js-personJob'),
+      email: document.querySelector('.js-email'),
+      phone: document.querySelector('.js-mobile'),
+      linkedin: document.querySelector('.js-linkedin'),
+      github: document.querySelector('.js-github'),
+      photo: document.querySelector('.card--img'),
+    };
+    
+    // Paint Name and job
+  
+    person.name.innerHTML =
+      this.state.name !== '' ? this.state.name : defaultPerson.name;
+  
+    person.job.innerHTML =
+    this.state.job !== '' ? this.state.job : defaultPerson.job;
+    
+  
+    // Paint Email
+  
+      if (this.state.email === '') {
+        person.email.classList.add('hidden');
+      } else {
+        person.email.href = `mailto:${this.state.email}`;
+        person.email.classList.remove('hidden');
+      }
+  
+      // Paint Phone
+  
+      if (this.state.phone === '') {
+        person.phone.classList.add('hidden');
+      } else {
+        person.phone.href = `tel:${this.state.phone}`;
+        person.phone.title = this.state.phone;
+        person.phone.classList.remove('hidden');
+      }
+  
+      //Paint linkedin
+   
+      if (this.state.linkedin === '') {
+        person.linkedin.classList.add('hidden');
+      } else {
+        person.linkedin.href = `https://www.linkedin.com/in/${this.state.linkedin}`;
+        person.linkedin.classList.remove('hidden');
+      }
+      if (this.state.github === '') {
+        person.github.classList.add('hidden');
+      } else {
+        person.github.href = `https://github.com/${this.state.github}`;
+        person.github.classList.remove('hidden');
+      }
+    
+  
+    checkFormValidity();
+  }
+
+  componentDidMount() {
+    const dataLS = JSON.parse(localStorage.getItem('userData'));
+
+    if (dataLS !== null) {
+      this.setState({
+        // palette: dataLS.palette,
+        name: dataLS.name,
+        job: dataLS.job,
+        phone: dataLS.phone,
+        photo: dataLS.photo,
+        email: dataLS.email,
+        linkedin: dataLS.linkedin,
+        github: dataLS.github,
+      });
+    }
+    this.cardMount();
   }
 
   componentDidUpdate() {
@@ -373,11 +458,11 @@ class Collapsable extends React.Component {
     paintCard(event);
     storeObject();
   }
-  createCardObject() {
-    showCardDone();
-    createDataObject();
-    sendRequest(dataObject);
-  }
+  // createCardObject() {
+  //   showCardDone();
+  //   createDataObject();
+  //   sendRequest(dataObject);
+  // }
   showCollapsible(event) {
     // Definición de variables (ARRAYS)
     const card = document.querySelector('.card__viewer');
@@ -613,7 +698,7 @@ class Collapsable extends React.Component {
                   //   onBlur={this.evilTalk(nameReaction, 4000)} TODO Fix
                   name='name'
                   onChange={this.handleChange}
-                  value={this.state.userData}
+                  value={this.state.name}
                   required
                 />
                 <label htmlFor='job'>Puesto</label>
@@ -624,7 +709,7 @@ class Collapsable extends React.Component {
                   //   onBlur={this.evilTalk(jobReaction, 4000)} TODO Fix
                   name='job'
                   onChange={this.handleChange}
-                  value={this.state.userData}
+                  value={this.state.job}
                   required
                 />
                 <label htmlFor='img-selector'>Imagen de perfil</label>
@@ -676,7 +761,7 @@ class Collapsable extends React.Component {
                     evilTalk(emailReaction, 4000);
                   }}
                   onChange={this.handleChange}
-                  value={this.state.userData}
+                  value={this.state.email}
                   name='email'
                   pattern='[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}'
                   required
@@ -702,7 +787,7 @@ class Collapsable extends React.Component {
                   name='linkedin'
                   pattern='[A-Za-z0-9]+'
                   onChange={this.handleChange}
-                  value={this.state.userData}
+                  value={this.state.linkedin}
                   required
                 />
 
@@ -714,7 +799,7 @@ class Collapsable extends React.Component {
                   name='github'
                   pattern='[A-Za-z0-9-]+'
                   onChange={this.handleChange}
-                  value={this.state.userData}
+                  value={this.state.github}
                   required
                 />
               </div>
@@ -737,10 +822,17 @@ class Collapsable extends React.Component {
                   href=''
                   title='Crear tarjeta'
                   onClick={(event) => {
-                    this.createCardObject(event);
+                    console.log('patata');
+                    // this.createCardObject(event);
+                    getDataFromApi(localStorage.getItem('userData'))
+                      .then(data => {
+                        console.log('api');
+                        showCardDone();
+                        showURL(data);
+                      })
                     evilTalk(createCard, 5000);
                   }} //TODO comprobar funcionamiento
-                  disabled
+                  
                 >
                   <i className='i__card far fa-address-card'></i>CREAR TARJETA
                 </button>
