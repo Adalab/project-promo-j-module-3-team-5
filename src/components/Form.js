@@ -15,8 +15,16 @@ class Form extends React.Component {
       profile: {
         avatar: defaultImage,
       },
+      name: '',
+      job: '',
+      email: '',
+      phone: '',
+      linkedin: '',
+      github: '',
+      photo: '',
     };
     this.updateAvatar = this.updateAvatar.bind(this);
+    this.handleChangeInput = this.handleChangeInput.bind(this);
   }
 
   updateAvatar(img) {
@@ -28,6 +36,19 @@ class Form extends React.Component {
         isAvatarDefault: false,
       };
     });
+  }
+
+  handleChangeInput(event){
+    // TODO (guardar en el estado el objeto)
+    // console.log(event)
+    // const key = event.name;
+    // console.log(key)
+    // const value = key === 'photo' ? this.props.avatar : event.value;
+    
+    // this.setState({
+    //   [key]: value,
+    // });
+    // console.log(this.state)
   }
 
   render() {
@@ -42,6 +63,7 @@ class Form extends React.Component {
               avatar={this.state.profile.avatar}
               isAvatarDefault={this.state.isAvatarDefault}
               updateAvatar={this.updateAvatar}
+              handleChangeInput={this.handleChangeInput}
             />
           </div>
           <Evilbot />

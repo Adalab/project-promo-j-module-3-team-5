@@ -43,23 +43,25 @@ function getPicLocal() {
 }
 
 function createDataObject() {
-  const inputName = document.querySelector('#name');
-  const inputJob = document.querySelector('#job');
-  const inputEmail = document.querySelector('#email');
-  const inputPhone = document.querySelector('#phone');
-  const inputLinkedin = document.querySelector('#linkedin');
-  const inputGithub = document.querySelector('#github');
+  // TODO
+  // const inputName = document.querySelector('#name');
+  // const inputJob = document.querySelector('#job');
+  // const inputEmail = document.querySelector('#email');
+  // const inputPhone = document.querySelector('#phone');
+  // const inputLinkedin = document.querySelector('#linkedin');
+  // const inputGithub = document.querySelector('#github');
 
-  dataObject = {
-    palette: checkedPalette,
-    name: inputName.value,
-    job: inputJob.value,
-    email: inputEmail.value,
-    phone: inputPhone.value,
-    linkedin: inputLinkedin.value,
-    github: inputGithub.value,
-    photo: getPicLocal(), // photo: fr.result || getPicLocal(),
-  };
+  // dataObject = {
+  //   palette: checkedPalette,
+  //   name: inputName.value,
+  //   job: inputJob.value,
+  //   email: inputEmail.value,
+  //   phone: inputPhone.value,
+  //   linkedin: inputLinkedin.value,
+  //   github: inputGithub.value,
+  //   photo: getPicLocal(), // photo: fr.result || getPicLocal(),
+  // };
+  // console.log(dataObject)
 }
 
 function storeObject() {
@@ -146,6 +148,7 @@ function checkFormValidity() {
   }
 }
 
+console.log(dataObject.name)
 class Card extends React.Component {
   constructor(props) {
     super(props);

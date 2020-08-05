@@ -1,5 +1,5 @@
 function getDataFromApi(json) {
-    fetch('https://us-central1-awesome-cards-cf6f0.cloudfunctions.net/card/', {
+    return fetch('https://us-central1-awesome-cards-cf6f0.cloudfunctions.net/card/', {
         method: 'POST',
         body: json,
         headers: {

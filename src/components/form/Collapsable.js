@@ -441,7 +441,8 @@ class Collapsable extends React.Component {
     const key = event.target.name;
     const value = key === 'photo' ? this.props.avatar : event.target.value;
     console.log(`Valor a subir: ${value}
-	============`);
+  ============`);
+    this.props.handleChangeInput(event.target.value);
     /*  const inputName = event.target.userData.name;
   const inputJob = event.target.userData.job;
   const inputEmail = event.target.userData.email;
