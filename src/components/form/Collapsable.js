@@ -238,6 +238,7 @@ function resetForm() {
 }
 
 function paintCard(event) {
+
   const defaultPerson = {
     name: 'Nombre Apellido',
     job: 'Front-end Developer',
@@ -354,6 +355,8 @@ class Collapsable extends React.Component {
   }
 
   cardMount() {
+    const dataLS = JSON.parse(localStorage.getItem('userData'));
+
     const defaultPerson = {
       name: 'Nombre Apellido',
       job: 'Front-end Developer',
@@ -368,23 +371,51 @@ class Collapsable extends React.Component {
       photo: document.querySelector('.card--img'),
     };
     
+    console.log(dataLS);
+    if (dataLS) {
+      this.setState({
+        // palette: dataLS.palette,
+        name: dataLS.name,
+        job: dataLS.job,
+        phone: dataLS.phone,
+        photo: dataLS.photo,
+        email: dataLS.email,
+        linkedin: dataLS.linkedin,
+        github: dataLS.github,
+      })
+    } else {
+      this.setState({
+        // palette: dataLS.palette,
+        name: '',
+        job: '',
+        phone: '',
+        photo: defaultPerson.photo,
+        email: '',
+        linkedin: '',
+        github: '',
+      })
+      person.name.innerHTML = defaultPerson.name;
+      person.job.innerHTML = defaultPerson.job;
+      
+    }
     // Paint Name and job
   
-    person.name.innerHTML =
-      this.state.name !== '' ? this.state.name : defaultPerson.name;
+    // person.name.innerHTML =
   
-    person.job.innerHTML =
-    this.state.job !== '' ? this.state.job : defaultPerson.job;
+      // this.state.name !== '' ? this.state.name : dataLS.name || defaultPerson.name;
+  
+    // person.job.innerHTML =
+    // this.state.job !== '' ? this.state.job : defaultPerson.job;
     
   
     // Paint Email
   
-      if (this.state.email === '') {
-        person.email.classList.add('hidden');
-      } else {
-        person.email.href = `mailto:${this.state.email}`;
-        person.email.classList.remove('hidden');
-      }
+      // if (this.state.email === '') {
+      //   person.email.classList.add('hidden');
+      // } else {
+      //   person.email.href = `mailto:${this.state.email}`;
+      //   person.email.classList.remove('hidden');
+      // }
   
       // Paint Phone
   
@@ -415,6 +446,11 @@ class Collapsable extends React.Component {
     checkFormValidity();
   }
 
+  handleForm(event) {
+    paintCard(event);
+    storeObject();
+  }
+
   componentDidMount() {
     const dataLS = JSON.parse(localStorage.getItem('userData'));
 
@@ -430,6 +466,56 @@ class Collapsable extends React.Component {
         github: dataLS.github,
       });
     }
+
+    console.log(this.state)
+
+    const person = {
+      name: document.querySelector('.js-personName'),
+      job: document.querySelector('.js-personJob'),
+      email: document.querySelector('.js-email'),
+      phone: document.querySelector('.js-mobile'),
+      linkedin: document.querySelector('.js-linkedin'),
+      github: document.querySelector('.js-github'),
+      photo: document.querySelector('.card--img'),
+    };
+    const defaultPerson = {
+      name: 'Nombre Apellido',
+      job: 'Front-end Developer',
+    };
+
+    if(this.state.name !== '') {
+      person.name.innerHTML = this.state.name;
+    } else if(this.state.name === '') {
+        if(dataLS) {
+          person.name.innerHTML = dataLS.name;
+        } else {
+          person.name.innerHTML = defaultPerson.name;
+        } 
+    } 
+
+    if(this.state.job !== '') {
+      console.log(this.state.job)
+      person.job.innerHTML = this.state.job;
+    } else if(this.state.job === '') {
+      console.log('patata');
+        if(dataLS) {
+          console.log('dataLS.job');
+          person.job.innerHTML = dataLS.job;
+        } else {
+          person.job.innerHTML = defaultPerson.job;
+        } 
+    } 
+
+    if(this.state.email !== '') {
+      person.email.classList.remove('hidden');
+      person.email.href="mailto:" + this.state.email;
+    } else if(this.state.email === '') {
+        if(dataLS) {
+          person.email.classList.add('hidden');
+          person.email.href="mailto:" + dataLS.email;
+        } 
+    } 
+
     this.cardMount();
   }
 
@@ -455,10 +541,9 @@ class Collapsable extends React.Component {
     });
   }
 
-  handleForm(event) {
-    paintCard(event);
-    storeObject();
-  }
+  
+
+ 
   // createCardObject() {
   //   showCardDone();
   //   createDataObject();

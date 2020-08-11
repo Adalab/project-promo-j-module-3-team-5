@@ -156,6 +156,7 @@ class Card extends React.Component {
     //   avatar: props.avatar,
     // };
   }
+
   resetForm() {
     const card = document.querySelector('.card__viewer');
     const person = {
@@ -207,6 +208,7 @@ class Card extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <section className='card__viewer'>
         <div className='card-background'></div>
@@ -227,10 +229,10 @@ class Card extends React.Component {
             {/* <!-- Text: name and description --> */}
             <div className='card__text'>
               <h3 className='card__text--name js-personName'>
-                Nombre Apellido
+                {this.props.userName}
               </h3>
               <p className='card__text--description js-personJob'>
-                Front-end developer
+             
               </p>
             </div>
 

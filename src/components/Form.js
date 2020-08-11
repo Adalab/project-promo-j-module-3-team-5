@@ -15,13 +15,15 @@ class Form extends React.Component {
       profile: {
         avatar: defaultImage,
       },
-      name: '',
-      job: '',
-      email: '',
-      phone: '',
-      linkedin: '',
-      github: '',
-      photo: '',
+      input: {
+        name: '',
+        job: '',
+        email: '',
+        phone: '',
+        linkedin: '',
+        github: '',
+        photo: '',
+      }
     };
     this.updateAvatar = this.updateAvatar.bind(this);
     this.handleChangeInput = this.handleChangeInput.bind(this);
@@ -53,12 +55,17 @@ class Form extends React.Component {
 
   render() {
     const { profile, isAvatarDefault } = this.state;
+    console.log(this.state.input.name);
     return (
       <div className='Form card-generator'>
         <Header />
         <main className='main__card-generator'>
           <div className='card-generator__wrapper'>
-            <Card avatar={this.state.profile.avatar} />
+            <Card 
+              avatar={this.state.profile.avatar} 
+              userName={this.state.input.name}
+              userEmail={this.state.input.email}
+            />
             <Collapsable
               avatar={this.state.profile.avatar}
               isAvatarDefault={this.state.isAvatarDefault}
