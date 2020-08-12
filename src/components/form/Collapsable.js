@@ -62,7 +62,6 @@ function sendRequest(json) {
       showURL(result);
     })
     .catch(function (error) {
-      console.log(error);
     });
 }
 
@@ -73,6 +72,7 @@ function createDataObject() {
   const inputPhone = document.querySelector('#phone');
   const inputLinkedin = document.querySelector('#linkedin');
   const inputGithub = document.querySelector('#github');
+
   dataObject = {
     palette: checkedPalette,
     name: inputName.value,
@@ -109,11 +109,9 @@ function closeCollapsable() {
   let trueFalseInputs = [];
   for (let i = 0; i < allInputs.length; i++) {
     const result = allInputs[i] === document.activeElement;
-    console.log(result);
     trueFalseInputs.push(result);
   }
   const hasFalse = trueFalseInputs.findIndex((element) => element === true);
-  console.log(hasFalse);
   if (hasFalse === -1) {
     colBox[0].classList.add('hide-design');
     colBox[1].classList.add('hide-fill');
@@ -166,7 +164,6 @@ function checkFormValidity() {
     form.checkValidity() === true
   ) {
     /// función cierra colapsable
-    console.log('Chequeando form');
     closeCollapsable();
     buttonCard.classList.remove('btn--disable');
     buttonCard.classList.add('btn--enable');
@@ -238,7 +235,6 @@ function resetForm() {
 }
 
 function paintCard(event) {
-
   const defaultPerson = {
     name: 'Nombre Apellido',
     job: 'Front-end Developer',
@@ -302,11 +298,8 @@ function paintCard(event) {
       person.github.classList.remove('hidden');
     }
   }
-
   checkFormValidity();
 }
-
-
 
 function evilTalk(text, seconds) {
   const evilBot = document.querySelector('.evil-bot');
@@ -370,8 +363,7 @@ class Collapsable extends React.Component {
       github: document.querySelector('.js-github'),
       photo: document.querySelector('.card--img'),
     };
-    
-    console.log(dataLS);
+  
     if (dataLS) {
       this.setState({
         // palette: dataLS.palette,
@@ -396,7 +388,6 @@ class Collapsable extends React.Component {
       })
       person.name.innerHTML = defaultPerson.name;
       person.job.innerHTML = defaultPerson.job;
-      
     }
     // Paint Name and job
   
@@ -419,29 +410,28 @@ class Collapsable extends React.Component {
   
       // Paint Phone
   
-      if (this.state.phone === '') {
-        person.phone.classList.add('hidden');
-      } else {
-        person.phone.href = `tel:${this.state.phone}`;
-        person.phone.title = this.state.phone;
-        person.phone.classList.remove('hidden');
-      }
+      // if (this.state.phone === '') {
+      //   person.phone.classList.add('hidden');
+      // } else {
+      //   person.phone = `tel:${this.state.phone}`;
+      //   person.phone.title = this.state.phone;
+      //   person.phone.classList.remove('hidden');
+      // }
   
       //Paint linkedin
    
-      if (this.state.linkedin === '') {
-        person.linkedin.classList.add('hidden');
-      } else {
-        person.linkedin.href = `https://www.linkedin.com/in/${this.state.linkedin}`;
-        person.linkedin.classList.remove('hidden');
-      }
-      if (this.state.github === '') {
-        person.github.classList.add('hidden');
-      } else {
-        person.github.href = `https://github.com/${this.state.github}`;
-        person.github.classList.remove('hidden');
-      }
-    
+      // if (this.state.linkedin === '') {
+      //   person.linkedin.classList.add('hidden');
+      // } else {
+      //   person.linkedin = `https://www.linkedin.com/in/${this.state.linkedin}`;
+      //   person.linkedin.classList.remove('hidden');
+      // }
+      // if (this.state.github === '') {
+      //   person.github.classList.add('hidden');
+      // } else {
+      //   person.github = `https://github.com/${this.state.github}`;
+      //   person.github.classList.remove('hidden');
+      // }
   
     checkFormValidity();
   }
@@ -467,8 +457,6 @@ class Collapsable extends React.Component {
       });
     }
 
-    console.log(this.state)
-
     const person = {
       name: document.querySelector('.js-personName'),
       job: document.querySelector('.js-personJob'),
@@ -486,7 +474,7 @@ class Collapsable extends React.Component {
     if(this.state.name !== '') {
       person.name.innerHTML = this.state.name;
     } else if(this.state.name === '') {
-        if(dataLS) {
+        if(dataLS.name !== '') {
           person.name.innerHTML = dataLS.name;
         } else {
           person.name.innerHTML = defaultPerson.name;
@@ -494,12 +482,9 @@ class Collapsable extends React.Component {
     } 
 
     if(this.state.job !== '') {
-      console.log(this.state.job)
       person.job.innerHTML = this.state.job;
     } else if(this.state.job === '') {
-      console.log('patata');
-        if(dataLS) {
-          console.log('dataLS.job');
+        if(dataLS.job !=='') {
           person.job.innerHTML = dataLS.job;
         } else {
           person.job.innerHTML = defaultPerson.job;
@@ -510,10 +495,48 @@ class Collapsable extends React.Component {
       person.email.classList.remove('hidden');
       person.email.href="mailto:" + this.state.email;
     } else if(this.state.email === '') {
-        if(dataLS) {
-          person.email.classList.add('hidden');
+        if(dataLS.email !== '') {
+          person.email.classList.remove('hidden');
           person.email.href="mailto:" + dataLS.email;
-        } 
+        } else {
+          person.email.classList.add('hidden');
+        }
+    } 
+
+    if(this.state.phone !== '') {
+      person.phone.classList.remove('hidden');
+      person.phone = this.state.phone;
+    } else if(this.state.phone === '') {
+        if(dataLS.phone !== '') {
+          person.phone.classList.remove('hidden');
+          person.phone = dataLS.phone;
+        } else {
+          person.phone.classList.add('hidden');
+        }
+    } 
+
+    if(this.state.linkedin !== '') {
+      person.linkedin.classList.remove('hidden');
+      person.linkedin.href= this.state.linkedin;
+    } else if(this.state.linkedin === '') {
+        if(dataLS.linkedin !== '') {
+          person.linkedin.classList.remove('hidden');
+          person.linkedin.href= dataLS.linkedin;
+        } else {
+          person.linkedin.classList.add('hidden');
+        }
+    } 
+
+    if(this.state.github !== '') {
+      person.github.classList.remove('hidden');
+      person.github.href= this.state.github;
+    } else if(this.state.github === '') {
+        if(dataLS.github !== '') {
+          person.github.classList.remove('hidden');
+          person.github.href= dataLS.github;
+        } else {
+          person.github.classList.add('hidden');
+        }
     } 
 
     this.cardMount();
@@ -671,7 +694,7 @@ class Collapsable extends React.Component {
   if(buttonReset) {
     buttonReset.addEventListener('click', resetForm);
   }
-  render() {
+  render() { 
     return (
       <form
         className='form'
@@ -862,7 +885,7 @@ class Collapsable extends React.Component {
                   name='phone'
                   pattern='[0-9]{9}'
                   onChange={this.handleChange}
-                  value={this.state.userData}
+                  value={this.state.phone}
                 />
 
                 <label htmlFor='linkedin'>Linkedin</label>
@@ -908,11 +931,9 @@ class Collapsable extends React.Component {
                   href=''
                   title='Crear tarjeta'
                   onClick={(event) => {
-                    console.log('patata');
                     // this.createCardObject(event);
                     getDataFromApi(localStorage.getItem('userData'))
                       .then(data => {
-                        console.log('api');
                         showCardDone();
                         showURL(data);
                       })
